@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from app.api.routes import health
 from app.database.connection import init_db, close_db
 from app.resolvers.root import Query, Mutation
 from strawberry.fastapi import GraphQLRouter
@@ -26,8 +25,6 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
-    app.include_router(health.router)
     
     schema = strawberry.Schema(query=Query, mutation=Mutation)
     app.include_router(GraphQLRouter(schema), prefix="/graphql")
