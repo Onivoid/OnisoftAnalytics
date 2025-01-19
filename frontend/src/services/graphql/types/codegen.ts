@@ -16,15 +16,65 @@ export type Scalars = {
   UUID: { input: any; output: any; }
 };
 
+export type AdminAuthenticated = {
+  __typename?: 'AdminAuthenticated';
+  id: Scalars['UUID']['output'];
+  role: Scalars['String']['output'];
+  username: Scalars['String']['output'];
+};
+
+export type AdminAuthenticatedError = AdminAuthenticated | Error;
+
+export type AdminAuthenticatedList = {
+  __typename?: 'AdminAuthenticatedList';
+  admins: Array<AdminAuthenticated>;
+};
+
+export type AdminAuthenticatedListError = AdminAuthenticatedList | Error;
+
+export type Error = {
+  __typename?: 'Error';
+  message: Scalars['String']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createAdmin: AdminAuthenticatedError;
   createUser: User;
+  deleteAdmin: SuccessError;
+  login: AdminAuthenticatedError;
+  logout: Scalars['Boolean']['output'];
+};
+
+
+export type MutationCreateAdminArgs = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteAdminArgs = {
+  id: Scalars['UUID']['input'];
+};
+
+
+export type MutationLoginArgs = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 export type Query = {
   __typename?: 'Query';
+  getAdmins: AdminAuthenticatedListError;
   users: Array<User>;
 };
+
+export type Success = {
+  __typename?: 'Success';
+  message: Scalars['String']['output'];
+};
+
+export type SuccessError = Error | Success;
 
 export type User = {
   __typename?: 'User';
