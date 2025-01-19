@@ -1,0 +1,18 @@
+overwrite: true
+schema: "http://backend:8000/graphql"
+documents: "src/services/graphql/documents/**/*.ts"
+generates:
+    src/services/graphql/types/codegen.ts:
+        plugins:
+            - "typescript"
+    src/services/graphql/hooks/:
+        preset: near-operation-file
+        presetConfig:
+            baseTypesPath: "../types/codegen.ts"
+            extension: .ts
+            folder: "../../hooks"
+        plugins:
+            - "typescript-operations"
+            - "typescript-react-apollo"
+        config:
+            withHooks: true
