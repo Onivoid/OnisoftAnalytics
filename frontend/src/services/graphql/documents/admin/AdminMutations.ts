@@ -51,3 +51,19 @@ mutation Logout {
   logout
 }
 `;
+
+export const ME = gql`
+mutation Me {
+  me {
+    ... on AdminAuthenticated {
+      id
+      role
+      username
+    }
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}
+`;

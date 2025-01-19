@@ -31,6 +31,11 @@ export type LogoutMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 
+export type MeMutationVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type MeMutation = { __typename?: 'Mutation', me: { __typename?: 'AdminAuthenticated', id: any, role: string, username: string } | { __typename: 'Error', message: string } };
+
 
 export const CreateAdminDocument = gql`
     mutation CreateAdmin($password: String!, $username: String!) {
@@ -186,3 +191,43 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const MeDocument = gql`
+    mutation Me {
+  me {
+    ... on AdminAuthenticated {
+      id
+      role
+      username
+    }
+    ... on Error {
+      __typename
+      message
+    }
+  }
+}
+    `;
+export type MeMutationFn = Apollo.MutationFunction<MeMutation, MeMutationVariables>;
+
+/**
+ * __useMeMutation__
+ *
+ * To run a mutation, you first call `useMeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [meMutation, { data, loading, error }] = useMeMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeMutation(baseOptions?: Apollo.MutationHookOptions<MeMutation, MeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MeMutation, MeMutationVariables>(MeDocument, options);
+      }
+export type MeMutationHookResult = ReturnType<typeof useMeMutation>;
+export type MeMutationResult = Apollo.MutationResult<MeMutation>;
+export type MeMutationOptions = Apollo.BaseMutationOptions<MeMutation, MeMutationVariables>;

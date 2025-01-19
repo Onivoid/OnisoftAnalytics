@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://backend:8000/graphql"
+schema: "http://backend:8000/api/graphql"
 documents: "src/services/graphql/documents/**/*.ts"
 generates:
     src/services/graphql/types/codegen.ts:

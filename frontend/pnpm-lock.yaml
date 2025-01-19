@@ -20,9 +20,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      graphql:
-        specifier: ^16.10.0
-        version: 16.10.0
       lucide-react:
         specifier: ^0.473.0
         version: 0.473.0(react@18.3.1)
@@ -38,25 +35,31 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.18)(react@18.3.1)
     devDependencies:
       '@eslint/js':
         specifier: ^9.17.0
         version: 9.18.0
       '@graphql-codegen/cli':
-        specifier: ^5.0.3
+        specifier: ^5.0.2
         version: 5.0.3(@babel/core@7.26.0)(@types/node@22.10.7)(encoding@0.1.13)(graphql@16.10.0)(typescript@5.6.3)
+      '@graphql-codegen/client-preset':
+        specifier: ^4.2.6
+        version: 4.5.1(@babel/core@7.26.0)(encoding@0.1.13)(graphql@16.10.0)
+      '@graphql-codegen/near-operation-file-preset':
+        specifier: ^3.0.0
+        version: 3.0.0(encoding@0.1.13)(graphql@16.10.0)
       '@graphql-codegen/typescript':
-        specifier: ^4.1.2
+        specifier: ^4.0.7
         version: 4.1.2(@babel/core@7.26.0)(encoding@0.1.13)(graphql@16.10.0)
       '@graphql-codegen/typescript-operations':
-        specifier: ^4.4.0
+        specifier: ^4.2.1
         version: 4.4.0(@babel/core@7.26.0)(encoding@0.1.13)(graphql@16.10.0)
       '@graphql-codegen/typescript-react-apollo':
-        specifier: ^4.3.2
+        specifier: ^4.3.0
         version: 4.3.2(encoding@0.1.13)(graphql@16.10.0)
-      '@types/node':
-        specifier: ^22.10.7
-        version: 22.10.7
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
@@ -605,6 +608,11 @@ packages:
     resolution: {integrity: sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@graphql-codegen/add@3.2.3':
+    resolution: {integrity: sha512-sQOnWpMko4JLeykwyjFTxnhqjd/3NOG2OyMuvK76Wnnwh8DRrNf2VEs2kmSvLl7MndMlOj7Kh5U154dVcvhmKQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+
   '@graphql-codegen/add@5.0.3':
     resolution: {integrity: sha512-SxXPmramkth8XtBlAHu4H4jYcYXM/o3p01+psU+0NADQowA8jtYkK6MW5rV6T+CxkEaNZItfSmZRPgIuypcqnA==}
     peerDependencies:
@@ -635,6 +643,12 @@ packages:
   '@graphql-codegen/gql-tag-operations@4.0.12':
     resolution: {integrity: sha512-v279i49FJ5dMmQXIGUgm6FtnnkxtJjVJWDNYh9JK4ppvOixdHp+PmEzW227DkLN6avhVxNnYdp/1gdRBwdWypw==}
     engines: {node: '>=16'}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+
+  '@graphql-codegen/near-operation-file-preset@3.0.0':
+    resolution: {integrity: sha512-HRPaa7OsIAHQBFeGiTUVdjFcxzgvAs7uxSqcLEJgDpCr9cffpwnlgWP3gK79KnTiHsRkyb55U1K4YyrL00g1Cw==}
+    engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
@@ -3022,6 +3036,24 @@ packages:
   zen-observable@0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
 
+  zustand@5.0.3:
+    resolution: {integrity: sha512-14fwWQtU3pH4dE0dOpdMiWjddcH+QzKIgk1cl8epwSE7yag43k/AD/m4L6+K7DytAOr9gGBe3/EXj9g7cdostg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -3556,6 +3588,12 @@ snapshots:
       '@eslint/core': 0.10.0
       levn: 0.4.1
 
+  '@graphql-codegen/add@3.2.3(graphql@16.10.0)':
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.10.0)
+      graphql: 16.10.0
+      tslib: 2.4.1
+
   '@graphql-codegen/add@5.0.3(graphql@16.10.0)':
     dependencies:
       '@graphql-codegen/plugin-helpers': 5.1.0(graphql@16.10.0)
@@ -3650,6 +3688,19 @@ snapshots:
       tslib: 2.6.3
     transitivePeerDependencies:
       - '@babel/core'
+      - encoding
+      - supports-color
+
+  '@graphql-codegen/near-operation-file-preset@3.0.0(encoding@0.1.13)(graphql@16.10.0)':
+    dependencies:
+      '@graphql-codegen/add': 3.2.3(graphql@16.10.0)
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.10.0)
+      '@graphql-codegen/visitor-plugin-common': 2.13.1(encoding@0.1.13)(graphql@16.10.0)
+      '@graphql-tools/utils': 10.7.2(graphql@16.10.0)
+      graphql: 16.10.0
+      parse-filepath: 1.0.2
+      tslib: 2.6.3
+    transitivePeerDependencies:
       - encoding
       - supports-color
 
@@ -6314,3 +6365,8 @@ snapshots:
       zen-observable: 0.8.15
 
   zen-observable@0.8.15: {}
+
+  zustand@5.0.3(@types/react@18.3.18)(react@18.3.1):
+    optionalDependencies:
+      '@types/react': 18.3.18
+      react: 18.3.1

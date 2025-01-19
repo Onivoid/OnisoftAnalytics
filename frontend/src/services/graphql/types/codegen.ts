@@ -44,6 +44,7 @@ export type Mutation = {
   deleteAdmin: SuccessError;
   login: AdminAuthenticatedError;
   logout: Scalars['Boolean']['output'];
+  me: AdminAuthenticatedError;
 };
 
 

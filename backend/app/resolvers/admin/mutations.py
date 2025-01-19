@@ -49,7 +49,7 @@ class AdminMutations:
             ):
                 
                 payload = {
-                    "usename": admin.username,
+                    "username": admin.username,
                     "role": admin.role,
                     "exp": datetime.now() + timedelta(days=1)
                 }
@@ -67,6 +67,21 @@ class AdminMutations:
                 return Error(message="Invalid password")
         except DoesNotExist:
             return Error(message="User not found")
+
+    @strawberry.mutation
+    async def me(self, info: strawberry.Private) -> Union[AdminAuthenticated, Error]:
+        request: HTTPConnection = info.context["request"]
+        token = request.cookies.get("token")
+        payload = verify_token(token)
+        if isinstance(payload, str):
+            return Error(message=payload)
+        try:
+            admin = await AdminModel.get(username=payload["username"])
+            return AdminAuthenticated(id=admin.id, username=admin.username, role=admin.role)
+        except DoesNotExist:
+            return Error(message="Admin not found")
+        except Exception as e:
+            return Error(message=str(e))
 
     @strawberry.mutation
     async def logout(self, info: strawberry.Private) -> bool:
