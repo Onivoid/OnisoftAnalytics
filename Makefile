@@ -7,7 +7,7 @@ BACKEND_CONTAINER=$(DC) exec backend
 .PHONY: up down build logs restart clean
 
 up:
-	$(DC) up -d
+	$(DC) up
 
 down:
 	$(DC) down

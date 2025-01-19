@@ -12,30 +12,22 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-};
-
-export type Message = {
-  __typename?: 'Message';
-  content: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
-};
-
-export type MessageInput = {
-  /** Contenu du message */
-  content: Scalars['String']['input'];
+  DateTime: { input: any; output: any; }
+  UUID: { input: any; output: any; }
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createMessage: Message;
-};
-
-
-export type MutationCreateMessageArgs = {
-  message: MessageInput;
+  createUser: User;
 };
 
 export type Query = {
   __typename?: 'Query';
-  messages: Array<Message>;
+  users: Array<User>;
+};
+
+export type User = {
+  __typename?: 'User';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['UUID']['output'];
 };

@@ -12,7 +12,7 @@ DATABASE_URL = f"postgres://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME
 async def init_db():
     await Tortoise.init(
         db_url=DATABASE_URL,
-        modules={"models": ["app.models.message"]}
+        modules={"models": ["app.models.user"]}
     )
     await Tortoise.generate_schemas()
 

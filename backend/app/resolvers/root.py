@@ -1,11 +1,11 @@
 import strawberry
-from .message.queries import MessageQueries
-from .message.mutations import MessageMutations
+from .user.queries import UserQueries
+from .user.mutations import UserMutations
 
 @strawberry.type
-class Query(MessageQueries):
+class Query(UserQueries):
     pass
 
 @strawberry.type
-class Mutation(MessageMutations):
+class Mutation(UserMutations):
     pass
