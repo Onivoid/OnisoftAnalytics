@@ -1,23 +1,29 @@
 import { useLoginMutation } from "@/services/graphql/hooks/AdminMutations";
 import { useRef } from "react";
+import { useAuthStore } from "@/services/stores/AuthStore";
 
 export function LoginComponent() {
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [loginMutation, { data, error/* , loading, error */ }] = useLoginMutation();
+    const [loginMutation] = useLoginMutation();
     const loginHandler = () => {
         loginMutation({
             variables: {
                 username: usernameRef.current!.value,
                 password: passwordRef.current!.value,
             }
-        }).then(() => {
+        }).then(response => {
+            const { data } = response;
+            if (data) {
+                const { login } = data;
+                if (login.__typename === "AdminAuthenticated") {
+                    useAuthStore.setState({ admin: login });
+                }
+            }
+        }).catch(error => {
             if (error) {
                 console.log('Login failed');
                 return;
-            } else if (data) {
-                console.log('Login successful');
-                console.log(data);
             }
         });
     };

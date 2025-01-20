@@ -7,18 +7,22 @@ export default function useLoginPersistance(
     isLoading: boolean,
     setIsLoading: (loading: boolean) => void,
 ) {
-    const [meMutation, { data, loading, error }] = useMeMutation();
+    const [meMutation] = useMeMutation();
 
     useEffect(() => {
         if (isLoading) {
-            meMutation();
-            if (!loading && data) {
-                const { me } = data as { me: AdminAuthenticated };
-                if (me.__typename === "AdminAuthenticated") {
-                    useAuthStore.setState({ admin: me });
+            meMutation().then(response => {
+                const { data } = response;
+                if (data) {
+                    const { me } = data as { me: AdminAuthenticated };
+                    if (me.__typename === "AdminAuthenticated") {
+                        useAuthStore.setState({ admin: me });
+                    }
                 }
-            }
-            setTimeout(() => setIsLoading(false), 2000);
+                setIsLoading(false);
+            }).catch(() => {
+                setIsLoading(false);
+            });
         }
-    }, [data, loading, error, isLoading, setIsLoading]);
+    }, [isLoading, meMutation, setIsLoading]);
 }
