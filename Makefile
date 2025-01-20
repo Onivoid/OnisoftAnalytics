@@ -46,6 +46,9 @@ lint:
 	$(FRONTEND_CONTAINER) npm run lint
 	$(BACKEND_CONTAINER) python -m black .
 
+format:
+	$(FRONTEND_CONTAINER) npx prettier --write .
+
 # Commandes de maintenance
 .PHONY: prune install update
 

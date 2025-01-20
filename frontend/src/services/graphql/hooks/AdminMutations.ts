@@ -1,58 +1,90 @@
-import * as Types from '../types/codegen';
+import * as Types from "../types/codegen";
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
 export type CreateAdminMutationVariables = Types.Exact<{
-  password: Types.Scalars['String']['input'];
-  username: Types.Scalars['String']['input'];
+    password: Types.Scalars["String"]["input"];
+    username: Types.Scalars["String"]["input"];
 }>;
 
-
-export type CreateAdminMutation = { __typename?: 'Mutation', createAdmin: { __typename?: 'AdminAuthenticated', id: any, role: string, username: string } | { __typename: 'Error', message: string } };
+export type CreateAdminMutation = {
+    __typename?: "Mutation";
+    createAdmin:
+        | {
+              __typename?: "AdminAuthenticated";
+              id: any;
+              role: string;
+              username: string;
+          }
+        | { __typename: "Error"; message: string };
+};
 
 export type DeleteAdminMutationVariables = Types.Exact<{
-  id: Types.Scalars['UUID']['input'];
+    id: Types.Scalars["UUID"]["input"];
 }>;
 
-
-export type DeleteAdminMutation = { __typename?: 'Mutation', deleteAdmin: { __typename: 'Error', message: string } | { __typename: 'Success', message: string } };
+export type DeleteAdminMutation = {
+    __typename?: "Mutation";
+    deleteAdmin:
+        | { __typename: "Error"; message: string }
+        | { __typename: "Success"; message: string };
+};
 
 export type LoginMutationVariables = Types.Exact<{
-  username: Types.Scalars['String']['input'];
-  password: Types.Scalars['String']['input'];
+    username: Types.Scalars["String"]["input"];
+    password: Types.Scalars["String"]["input"];
 }>;
 
+export type LoginMutation = {
+    __typename?: "Mutation";
+    login:
+        | {
+              __typename?: "AdminAuthenticated";
+              id: any;
+              role: string;
+              username: string;
+          }
+        | { __typename: "Error"; message: string };
+};
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AdminAuthenticated', id: any, role: string, username: string } | { __typename: 'Error', message: string } };
+export type LogoutMutationVariables = Types.Exact<{ [key: string]: never }>;
 
-export type LogoutMutationVariables = Types.Exact<{ [key: string]: never; }>;
+export type LogoutMutation = { __typename?: "Mutation"; logout: boolean };
 
+export type MeMutationVariables = Types.Exact<{ [key: string]: never }>;
 
-export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
-
-export type MeMutationVariables = Types.Exact<{ [key: string]: never; }>;
-
-
-export type MeMutation = { __typename?: 'Mutation', me: { __typename?: 'AdminAuthenticated', id: any, role: string, username: string } | { __typename: 'Error', message: string } };
-
+export type MeMutation = {
+    __typename?: "Mutation";
+    me:
+        | {
+              __typename?: "AdminAuthenticated";
+              id: any;
+              role: string;
+              username: string;
+          }
+        | { __typename: "Error"; message: string };
+};
 
 export const CreateAdminDocument = gql`
     mutation CreateAdmin($password: String!, $username: String!) {
-  createAdmin(password: $password, username: $username) {
-    ... on AdminAuthenticated {
-      id
-      role
-      username
+        createAdmin(password: $password, username: $username) {
+            ... on AdminAuthenticated {
+                id
+                role
+                username
+            }
+            ... on Error {
+                __typename
+                message
+            }
+        }
     }
-    ... on Error {
-      __typename
-      message
-    }
-  }
-}
-    `;
-export type CreateAdminMutationFn = Apollo.MutationFunction<CreateAdminMutation, CreateAdminMutationVariables>;
+`;
+export type CreateAdminMutationFn = Apollo.MutationFunction<
+    CreateAdminMutation,
+    CreateAdminMutationVariables
+>;
 
 /**
  * __useCreateAdminMutation__
@@ -72,28 +104,45 @@ export type CreateAdminMutationFn = Apollo.MutationFunction<CreateAdminMutation,
  *   },
  * });
  */
-export function useCreateAdminMutation(baseOptions?: Apollo.MutationHookOptions<CreateAdminMutation, CreateAdminMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateAdminMutation, CreateAdminMutationVariables>(CreateAdminDocument, options);
-      }
-export type CreateAdminMutationHookResult = ReturnType<typeof useCreateAdminMutation>;
-export type CreateAdminMutationResult = Apollo.MutationResult<CreateAdminMutation>;
-export type CreateAdminMutationOptions = Apollo.BaseMutationOptions<CreateAdminMutation, CreateAdminMutationVariables>;
+export function useCreateAdminMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        CreateAdminMutation,
+        CreateAdminMutationVariables
+    >,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useMutation<
+        CreateAdminMutation,
+        CreateAdminMutationVariables
+    >(CreateAdminDocument, options);
+}
+export type CreateAdminMutationHookResult = ReturnType<
+    typeof useCreateAdminMutation
+>;
+export type CreateAdminMutationResult =
+    Apollo.MutationResult<CreateAdminMutation>;
+export type CreateAdminMutationOptions = Apollo.BaseMutationOptions<
+    CreateAdminMutation,
+    CreateAdminMutationVariables
+>;
 export const DeleteAdminDocument = gql`
     mutation DeleteAdmin($id: UUID!) {
-  deleteAdmin(id: $id) {
-    ... on Success {
-      __typename
-      message
+        deleteAdmin(id: $id) {
+            ... on Success {
+                __typename
+                message
+            }
+            ... on Error {
+                __typename
+                message
+            }
+        }
     }
-    ... on Error {
-      __typename
-      message
-    }
-  }
-}
-    `;
-export type DeleteAdminMutationFn = Apollo.MutationFunction<DeleteAdminMutation, DeleteAdminMutationVariables>;
+`;
+export type DeleteAdminMutationFn = Apollo.MutationFunction<
+    DeleteAdminMutation,
+    DeleteAdminMutationVariables
+>;
 
 /**
  * __useDeleteAdminMutation__
@@ -112,29 +161,46 @@ export type DeleteAdminMutationFn = Apollo.MutationFunction<DeleteAdminMutation,
  *   },
  * });
  */
-export function useDeleteAdminMutation(baseOptions?: Apollo.MutationHookOptions<DeleteAdminMutation, DeleteAdminMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteAdminMutation, DeleteAdminMutationVariables>(DeleteAdminDocument, options);
-      }
-export type DeleteAdminMutationHookResult = ReturnType<typeof useDeleteAdminMutation>;
-export type DeleteAdminMutationResult = Apollo.MutationResult<DeleteAdminMutation>;
-export type DeleteAdminMutationOptions = Apollo.BaseMutationOptions<DeleteAdminMutation, DeleteAdminMutationVariables>;
+export function useDeleteAdminMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DeleteAdminMutation,
+        DeleteAdminMutationVariables
+    >,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useMutation<
+        DeleteAdminMutation,
+        DeleteAdminMutationVariables
+    >(DeleteAdminDocument, options);
+}
+export type DeleteAdminMutationHookResult = ReturnType<
+    typeof useDeleteAdminMutation
+>;
+export type DeleteAdminMutationResult =
+    Apollo.MutationResult<DeleteAdminMutation>;
+export type DeleteAdminMutationOptions = Apollo.BaseMutationOptions<
+    DeleteAdminMutation,
+    DeleteAdminMutationVariables
+>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
-  login(password: $password, username: $username) {
-    ... on AdminAuthenticated {
-      id
-      role
-      username
+        login(password: $password, username: $username) {
+            ... on AdminAuthenticated {
+                id
+                role
+                username
+            }
+            ... on Error {
+                __typename
+                message
+            }
+        }
     }
-    ... on Error {
-      __typename
-      message
-    }
-  }
-}
-    `;
-export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+`;
+export type LoginMutationFn = Apollo.MutationFunction<
+    LoginMutation,
+    LoginMutationVariables
+>;
 
 /**
  * __useLoginMutation__
@@ -154,19 +220,33 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  *   },
  * });
  */
-export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
-      }
+export function useLoginMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        LoginMutation,
+        LoginMutationVariables
+    >,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
+        LoginDocument,
+        options,
+    );
+}
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+    LoginMutation,
+    LoginMutationVariables
+>;
 export const LogoutDocument = gql`
     mutation Logout {
-  logout
-}
-    `;
-export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
+        logout
+    }
+`;
+export type LogoutMutationFn = Apollo.MutationFunction<
+    LogoutMutation,
+    LogoutMutationVariables
+>;
 
 /**
  * __useLogoutMutation__
@@ -184,29 +264,43 @@ export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMut
  *   },
  * });
  */
-export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
-      }
+export function useLogoutMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        LogoutMutation,
+        LogoutMutationVariables
+    >,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(
+        LogoutDocument,
+        options,
+    );
+}
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
-export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<
+    LogoutMutation,
+    LogoutMutationVariables
+>;
 export const MeDocument = gql`
     mutation Me {
-  me {
-    ... on AdminAuthenticated {
-      id
-      role
-      username
+        me {
+            ... on AdminAuthenticated {
+                id
+                role
+                username
+            }
+            ... on Error {
+                __typename
+                message
+            }
+        }
     }
-    ... on Error {
-      __typename
-      message
-    }
-  }
-}
-    `;
-export type MeMutationFn = Apollo.MutationFunction<MeMutation, MeMutationVariables>;
+`;
+export type MeMutationFn = Apollo.MutationFunction<
+    MeMutation,
+    MeMutationVariables
+>;
 
 /**
  * __useMeMutation__
@@ -224,10 +318,18 @@ export type MeMutationFn = Apollo.MutationFunction<MeMutation, MeMutationVariabl
  *   },
  * });
  */
-export function useMeMutation(baseOptions?: Apollo.MutationHookOptions<MeMutation, MeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MeMutation, MeMutationVariables>(MeDocument, options);
-      }
+export function useMeMutation(
+    baseOptions?: Apollo.MutationHookOptions<MeMutation, MeMutationVariables>,
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useMutation<MeMutation, MeMutationVariables>(
+        MeDocument,
+        options,
+    );
+}
 export type MeMutationHookResult = ReturnType<typeof useMeMutation>;
 export type MeMutationResult = Apollo.MutationResult<MeMutation>;
-export type MeMutationOptions = Apollo.BaseMutationOptions<MeMutation, MeMutationVariables>;
+export type MeMutationOptions = Apollo.BaseMutationOptions<
+    MeMutation,
+    MeMutationVariables
+>;

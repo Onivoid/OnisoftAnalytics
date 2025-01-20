@@ -11,18 +11,20 @@ export default function useLoginPersistance(
 
     useEffect(() => {
         if (isLoading) {
-            meMutation().then(response => {
-                const { data } = response;
-                if (data) {
-                    const { me } = data as { me: AdminAuthenticated };
-                    if (me.__typename === "AdminAuthenticated") {
-                        useAuthStore.setState({ admin: me });
+            meMutation()
+                .then((response) => {
+                    const { data } = response;
+                    if (data) {
+                        const { me } = data as { me: AdminAuthenticated };
+                        if (me.__typename === "AdminAuthenticated") {
+                            useAuthStore.setState({ admin: me });
+                        }
                     }
-                }
-                setIsLoading(false);
-            }).catch(() => {
-                setIsLoading(false);
-            });
+                    setIsLoading(false);
+                })
+                .catch(() => {
+                    setIsLoading(false);
+                });
         }
     }, [isLoading, meMutation, setIsLoading]);
 }

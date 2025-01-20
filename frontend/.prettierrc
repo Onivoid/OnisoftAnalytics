@@ -1,0 +1,15 @@
+{
+    "tabWidth": 4,
+    "overrides": [
+        {
+            "files": "*.ts, *.tsx",
+            "options": {
+                "tabWidth": 4
+            }
+        }
+    ],
+    "ignore": [
+        "src/services/graphql/types/*.ts",
+        "src/services/graphql/hooks/*.ts"
+    ]
+}

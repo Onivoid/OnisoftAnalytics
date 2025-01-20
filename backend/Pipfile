@@ -13,7 +13,6 @@ tortoise = "*"
 tortoise-orm = "*"
 asyncpg = "*"
 bcrypt = "*"
-jwt = "*"
 pyjwt = "*"
 
 [dev-packages]
