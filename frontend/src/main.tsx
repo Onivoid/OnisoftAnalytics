@@ -9,7 +9,7 @@ import { ThemeProvider } from "./components/custom/themeProvider.tsx";
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <ApolloProvider client={client}>
-            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
                 <App />
             </ThemeProvider>
         </ApolloProvider>

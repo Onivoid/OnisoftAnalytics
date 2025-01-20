@@ -15,7 +15,7 @@ function App() {
         console.log("isLoading", isLoading);
     }, [admin, isLoading]);
     return (
-        <>
+        <div className="flex justify-center items-center min-h-screen">
             {isLoading ? (
                 <div>Loading...</div>
             ) : admin ? (
@@ -23,7 +23,7 @@ function App() {
             ) : (
                 <LoginComponent />
             )}
-        </>
+        </div>
     );
 }
 

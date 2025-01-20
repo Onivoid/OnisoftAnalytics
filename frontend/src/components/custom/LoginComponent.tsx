@@ -1,6 +1,15 @@
 import { useLoginMutation } from "@/services/graphql/hooks/AdminMutations";
 import { useRef } from "react";
 import { useAuthStore } from "@/services/stores/AuthStore";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function LoginComponent() {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -30,16 +39,19 @@ export function LoginComponent() {
             });
     };
     return (
-        <div>
-            <p>Username</p>
-            <input type="text" ref={usernameRef} className="text-background" />
-            <p>Password</p>
-            <input
-                type="password"
-                ref={passwordRef}
-                className="text-background"
-            />
-            <button onClick={() => loginHandler()}>Login</button>
-        </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>Login</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p>Username</p>
+                <Input type="text" ref={usernameRef} />
+                <p>Password</p>
+                <Input type="password" ref={passwordRef} />
+            </CardContent>
+            <CardFooter>
+                <Button onClick={() => loginHandler()}>Login</Button>
+            </CardFooter>
+        </Card>
     );
 }
