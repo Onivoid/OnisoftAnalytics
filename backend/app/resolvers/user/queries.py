@@ -3,6 +3,7 @@ from typing import List
 from app.schemas.user import User
 from app.models.user import User as UserModel
 
+
 @strawberry.type
 class UserQueries:
     @strawberry.field

@@ -3,6 +3,7 @@ from tortoise.signals import pre_save
 import uuid
 import bcrypt
 
+
 class Role:
     SUPERADMIN = "SuperAdmin"
     ADMIN = "Admin"
@@ -17,9 +18,7 @@ class Admin(Model):
     username = fields.CharField(max_length=255, unique=True)
     password = fields.CharField(max_length=255)
     created_at = fields.DatetimeField(auto_now_add=True)
-    role = fields.CharField(
-        max_length=255, choices=Role.choices(), default=Role.ADMIN
-    )
+    role = fields.CharField(max_length=255, choices=Role.choices(), default=Role.ADMIN)
 
     class Meta:
         table = "admins"

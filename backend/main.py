@@ -6,17 +6,16 @@ from app.resolvers.root import Query, Mutation
 from strawberry.fastapi import GraphQLRouter
 import strawberry
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_db()
     yield
     await close_db()
 
+
 def create_app() -> FastAPI:
-    app = FastAPI(
-        root_path="/api",
-        lifespan=lifespan
-    )
+    app = FastAPI(root_path="/api", lifespan=lifespan)
 
     app.add_middleware(
         CORSMiddleware,
@@ -25,10 +24,11 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    
+
     schema = strawberry.Schema(query=Query, mutation=Mutation)
     app.include_router(GraphQLRouter(schema), prefix="/graphql")
 
     return app
+
 
 app = create_app()

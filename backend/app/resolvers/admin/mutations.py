@@ -1,10 +1,7 @@
 import strawberry
 from app.schemas.admin import AdminAuthenticated
 from tortoise.exceptions import DoesNotExist
-from app.models.admin import (
-    Admin as AdminModel,
-    Role
-)
+from app.models.admin import Admin as AdminModel, Role
 from datetime import datetime, timedelta
 import jwt
 from typing import Union
@@ -17,6 +14,7 @@ import uuid
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
+
 
 @strawberry.type
 class AdminMutations:
@@ -32,9 +30,13 @@ class AdminMutations:
         if payload["role"] != Role.SUPERADMIN or not payload["role"]:
             return Error(message="Unauthorized")
         try:
-            hashed_pw = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt()).decode()
+            hashed_pw = bcrypt.hashpw(
+                password.encode("utf8"), bcrypt.gensalt()
+            ).decode()
             new_admin = await AdminModel.create(username=username, password=hashed_pw)
-            return AdminAuthenticated(id=new_admin.id, username=new_admin.username, role=new_admin.role)
+            return AdminAuthenticated(
+                id=new_admin.id, username=new_admin.username, role=new_admin.role
+            )
         except Exception as e:
             return Error(message=str(e))
 
@@ -44,24 +46,17 @@ class AdminMutations:
     ) -> Union[AdminAuthenticated, Error]:
         try:
             admin = await AdminModel.get(username=username)
-            if bcrypt.checkpw(
-                password.encode("utf8"), admin.password.encode("utf8")
-            ):
-                
+            if bcrypt.checkpw(password.encode("utf8"), admin.password.encode("utf8")):
                 payload = {
                     "username": admin.username,
                     "role": admin.role,
-                    "exp": datetime.now() + timedelta(days=1)
+                    "exp": datetime.now() + timedelta(days=1),
                 }
-                token = jwt.encode(
-                    payload=payload, key=SECRET_KEY, algorithm=ALGORITHM
-                )
+                token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm=ALGORITHM)
                 info.context["response"].set_cookie(key="token", value=token)
 
                 return AdminAuthenticated(
-                    id=admin.id,
-                    username=admin.username,
-                    role=admin.role
+                    id=admin.id, username=admin.username, role=admin.role
                 )
             else:
                 return Error(message="Invalid password")
@@ -77,7 +72,9 @@ class AdminMutations:
             return Error(message=payload)
         try:
             admin = await AdminModel.get(username=payload["username"])
-            return AdminAuthenticated(id=admin.id, username=admin.username, role=admin.role)
+            return AdminAuthenticated(
+                id=admin.id, username=admin.username, role=admin.role
+            )
         except DoesNotExist:
             return Error(message="Admin not found")
         except Exception as e:
